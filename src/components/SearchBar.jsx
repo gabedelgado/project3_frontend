@@ -1,15 +1,22 @@
-// THIS COMPONENT IS FROM FREE & OPEN SOURCE TAILWIND EXTENSION https://www.creative-tim.com/learning-lab/tailwind-starter-kit/documentation/ 
+import usePlacesAutocomplete, {getGeocode, getLatLng} from "use-places-autocomplete"
+import {Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption} from "@reach/combobox"
+import "@reach/combobox/styles.css";
 
-
-const SearchBar = () => {
-  return (
-    <div class="relative flex w-1/2 flex-wrap items-stretch m-auto mb-3">
-      <input type="text" placeholder="Placeholder" class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:ring w-full pr-10"/>
-      <span class="z-10 h-full leading-snug font-normal absolute text-center text-blueGray-300 bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-3 py-3">
-        <i class="fas fa-search"></i>
-      </span>
-    </div>
+const SearchBar = () => { 
+    const {ready, value, suggestions: {status, data}, setValue, clearSuggestions} = usePlacesAutocomplete()
+   
+    return (ready) ? (
+        <Combobox onSelect={address => console.log(address)} >
+            <ComboboxInput className=" max-w-[90%] p-4 w-full border rounded h-16 text-xl" value={value} onChange={e => setValue(e.target.value)} disabled={!ready} placeholder="Enter an address, city, neighborhood, or ZIP code"/>
+            <ComboboxPopover>
+                {status === "OK" && data.map(({description, place_id}) => <ComboboxOption value={description} key={place_id}/>)}  
+            </ComboboxPopover>
+        </Combobox>
+    ) :
+    (
+        <div>Loading map search...</div>
     )
 }
+
 
 export default SearchBar
