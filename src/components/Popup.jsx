@@ -8,10 +8,10 @@ import React from "react";
   return (
     <>
       <p
-        className="hover:opacity-75 text-black cursor-pointer"
+        className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75 cursor-pointer"
         onClick={() => setShowModal(true)}
       >
-        Open small modal
+        {props.title}
       </p>
       {showModal ? (
         <>
@@ -40,7 +40,7 @@ import React from "react";
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
-                  <h1>stuff</h1>
+                  <div>{React.cloneElement(props.children, { showModal, setShowModal, loggedIn: props.loggedIn, setLoggedIn: props.setLoggedIn })}</div>
                 </div>
                 {/*footer*/}
                 {/* <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">

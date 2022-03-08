@@ -1,10 +1,14 @@
 // THIS COMPONENT IS FROM FREE & OPEN SOURCE TAILWIND EXTENSION https://www.creative-tim.com/learning-lab/tailwind-starter-kit/documentation/react/navbars    
 
 import React from "react";
+import Popup from "./Popup";
+import SignUp from "./SignUp";
+import SignOut from "./SignOut";
+import LogIn from "./LogIn";
 
-
-export default function Navbar({ fixed }) {
+export default function Navbar({ loggedIn, setLoggedIn }) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
+  
   return (
     <>
       <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 mb-3 bg-emerald-700">
@@ -48,14 +52,21 @@ export default function Navbar({ fixed }) {
                   <span className="ml-4">Tweet</span>
                 </a>
               </li>
-              <li className="nav-item">
-                <a
-                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-                  href="#pablo"
-                >
-                  <span className="ml-4">Pin</span>
-                </a>
-              </li>
+
+              {loggedIn ? 
+                <li className="nav-item">
+                  <Popup loggedIn={loggedIn} setLoggedIn={setLoggedIn} title="Sign Out"><SignOut /></Popup>
+                </li>
+                 : 
+              <>
+                <li className="nav-item">
+                  <Popup loggedIn={loggedIn} setLoggedIn={setLoggedIn} title="Sign Up"><SignUp /></Popup>
+                </li>
+                <li className="nav-item">
+                  <Popup loggedIn={loggedIn} setLoggedIn={setLoggedIn} title="Log In"><LogIn /></Popup>
+                </li>
+              </>
+              }
             </ul>
           </div>
         </div>

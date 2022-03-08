@@ -1,10 +1,8 @@
-import SearchBar from "./SearchBar"
+import HomeSearchBar from "./HomeSearchBar"
 import InfoCard from "./InfoCard"
 import signup from "../assets/signup.jpg"
 import search_homes from "../assets/search_homes.png"
 import buy_home from "../assets/buy_home.svg"
-
-import Popup from "./Popup"
 
 const HomePage = (props) => {
   return (
@@ -16,10 +14,10 @@ const HomePage = (props) => {
             <h1 className=" text-5xl text-white font-bold">Welcome to Zillow Clone!</h1>
           </div>
           <div>
-            <p className=" text-3xl text-white font-semibold">Find your home now!</p>
+            <p className=" text-3xl text-white font-semibold">Find the perfect home for you.</p>
           </div>
           <div className=" w-full">
-            <SearchBar />
+            <HomeSearchBar />
           </div>
         </div>
       
@@ -34,7 +32,6 @@ const HomePage = (props) => {
           </div>
   
       </div>
-      <Popup title="Log in"/>
     </div>
   )
 }
