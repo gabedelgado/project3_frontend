@@ -5,6 +5,7 @@ import Popup from "./Popup";
 import SignUp from "./SignUp";
 import SignOut from "./SignOut";
 import LogIn from "./LogIn";
+import { Link } from "react-router-dom";
 
 export default function Navbar({ loggedIn, setLoggedIn }) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
@@ -36,27 +37,15 @@ export default function Navbar({ loggedIn, setLoggedIn }) {
             id="example-navbar-danger"
           >
             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
-              <li className="nav-item">
-                <a
-                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-                  href="#pablo"
-                >
-                  <span className="ml-4">Share</span>
-                </a>
-              </li>
-              <li className="nav-item">
-                <a
-                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-                  href="#pablo"
-                >
-                  <span className="ml-4">Tweet</span>
-                </a>
-              </li>
-
               {loggedIn ? 
-                <li className="nav-item">
-                  <Popup loggedIn={loggedIn} setLoggedIn={setLoggedIn} title="Sign Out"><SignOut /></Popup>
-                </li>
+                <>
+                  <li className="nav-item">
+                    <Popup loggedIn={loggedIn} setLoggedIn={setLoggedIn} title="Sign Out"><SignOut /></Popup>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" to="/user/edit">Edit Profile</Link>
+                  </li>
+                </>
                  : 
               <>
                 <li className="nav-item">

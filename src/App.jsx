@@ -3,8 +3,8 @@ import './App.css';
 import Navbar from './components/Navbar';
 import {Routes, Route} from "react-router-dom"
 import HomePage from "./components/HomePage"
-import {GoogleMap, Marker, InfoWindow} from "@react-google-maps/api"
 import MapSearch from './components/MapSearch';
+import EditUser from './components/EditUser';
 import { useState } from "react"
 
 function App() {
@@ -15,6 +15,7 @@ function App() {
       <Routes>
         <Route path='/' element={<HomePage/>}/>
         <Route path='/homes/:lat/:lng' element={<MapSearch loggedIn={loggedIn} setLoggedIn={setLoggedIn}/> }/>
+        <Route path='/user/edit' element={<EditUser/>}/>
       </Routes>
 
 
