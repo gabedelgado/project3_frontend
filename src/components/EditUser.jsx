@@ -12,14 +12,23 @@ const EditUser = ({setLoggedIn}) => {
             setLoggedIn(false)
             navigate('/')
         })
+        return 
     }
+
+    const updateUsername = () => {
+        post("/auth/update-user", {username: newUsername}).then(results => {
+            navigate('/')
+        })
+        return
+    }
+
     return (
-        <div>
-            <div>
+        <div className="h-[80vh] flex justify-center items-center">
+            <div className="flex flex-col h-52 items-center justify-between">
                 <form>
                     <div className="flex justify-center">
-                        <input value={newUsername} type="text" placeholder="Enter New Username" onChange={e => setNewUsername(e.target.value)}/>
-                        <button className="bg-red-500 text-white active:bg-red-600 font-bold uppercase text-base px-8 py-3 rounded shadow-md hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                        <input className="border rounded text-lg p-2 mr-2" value={newUsername} type="text" placeholder="Enter New Username" onChange={e => setNewUsername(e.target.value)}/>
+                        <button onClick={updateUsername} className="bg-red-500 text-white active:bg-red-600 font-bold uppercase text-base px-8 py-3 rounded shadow-md hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
                           Update Username
                         </button>
                     </div>

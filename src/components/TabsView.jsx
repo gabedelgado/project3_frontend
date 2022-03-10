@@ -1,15 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {post, get} from "../http/service"
 import ListHomes from "../components/ListHomes"
 const Tabs = ({ loggedIn, setLoggedIn, searchResults, setSearchResults }) => {
   const [openTab, setOpenTab] = React.useState(1);
   const [savedHomes, setSavedHomes] = React.useState([])
+  const [saved, setSaved] = React.useState([])
+  
+  const removeHome = (listing) => {
+    post("/homes/delete-home", {listing}).then(results => {
+        setSavedHomes(savedHomes.filter(thelisting => thelisting._id !== listing));
+    })
+}
 
   const updateSavedHomes = () => {
     get("/homes").then(results => {
       setSavedHomes(results.data.home_list.savedHomes)
     })  
   }
+
+  useEffect(() => {
+    let savedIDs = savedHomes.map(home => home.listing_id_api)
+    setSaved(searchResults.map(listing => {
+      return {liked: savedIDs.includes(listing.listing_id), savedHomesIndex: savedIDs.indexOf(listing.listing_id)}
+    }))
+  }, [searchResults, savedHomes])
 
   const addHome = (listing) => {
     const body = {
@@ -39,7 +53,7 @@ const Tabs = ({ loggedIn, setLoggedIn, searchResults, setSearchResults }) => {
       console.log(results)
     }).catch(err => {
       console.log( err)
-    })
+    }).then(() => updateSavedHomes())
   }
 
   return (
@@ -95,7 +109,7 @@ const Tabs = ({ loggedIn, setLoggedIn, searchResults, setSearchResults }) => {
               <div className="tab-content tab-space">
                 <div className={openTab === 1 ? "block" : "hidden"} id="link1">
                   <div className="row justify-content-around">
-                    {searchResults.map(listing => {
+                    {searchResults.map((listing,index) => {
                       return (
                         <div className="col-12 col-lg-6 my-2" key={listing.listing_id}>
                           <div className=" border-2 rounded">
@@ -110,13 +124,16 @@ const Tabs = ({ loggedIn, setLoggedIn, searchResults, setSearchResults }) => {
                               <p className=" text-sm text-left ml-2">{listing.address_new.line ? `${listing.address_new.line}, ${listing.address_new.city}, ${listing.address_new.state_code} ${listing.address_new.postal_code}` : listing.address}</p>
                             </div>
                             <div>
-                              <p className=" text-left ml-2">{listing.office_name}</p>
+                              <p className="text-sm text-left ml-2">{listing.office_name}</p>
                             </div>
                             <br />
                             <div>
-                            
-  <i onClick={() => addHome(listing)} className="fas fa-heart hover:cursor-pointer"></i>
-  <i className="far fa-heart hover:cursor-pointer"></i>
+                            {loggedIn ? ( saved[index]?.liked 
+                            ?  
+                            <i onClick={() => removeHome(savedHomes[saved[index].savedHomesIndex]._id)} className="fas fa-heart hover:cursor-pointer"></i>
+                            : 
+                            <i onClick={() => addHome(listing)} className="far fa-heart hover:cursor-pointer"></i>) : <p>Please login to save homes</p>}
+  
 
                             </div>
                             <br />

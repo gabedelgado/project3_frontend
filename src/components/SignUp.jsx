@@ -8,7 +8,6 @@ const SignUp = (props) => {
     const [loading, setLoading] = useState(false)
     const [errMessage, setErrMessage] = useState(false)
 
-    console.log(props)
     const doSignup = async (e) => {
         e.preventDefault()
         setLoading(true)
@@ -16,7 +15,6 @@ const SignUp = (props) => {
         post("/auth/signup", {username, password}).then(response => {
             if (response.status === 200){
                 localStorage.setItem("token", response.data);
-                console.log('got here')
                 props.setLoggedIn(true)
                 props.setShowModal(false)
             }

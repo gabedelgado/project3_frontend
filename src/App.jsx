@@ -14,8 +14,8 @@ function App() {
       <Navbar loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
       <Routes>
         <Route path='/' element={<HomePage/>}/>
-        <Route path='/homes/:lat/:lng' element={<MapSearch loggedIn={loggedIn} setLoggedIn={setLoggedIn}/> }/>
-        <Route path='/user/edit' element={<EditUser/>}/>
+        <Route path='/homes/:address' element={<MapSearch loggedIn={loggedIn} setLoggedIn={setLoggedIn}/> }/>
+        <Route path='/user/edit' element={<EditUser setLoggedIn={setLoggedIn}/>}/>
       </Routes>
 
 

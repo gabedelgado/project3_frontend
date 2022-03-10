@@ -4,7 +4,6 @@ const ListHomes = (({savedHomes, setSavedHomes}) => {
     
     const removeHome = (listing) => {
         post("/homes/delete-home", {listing}).then(results => {
-            console.log(results);
             setSavedHomes(savedHomes.filter(thelisting => thelisting._id !== listing));
         })
     }
@@ -25,13 +24,12 @@ const ListHomes = (({savedHomes, setSavedHomes}) => {
                               <p className=" text-sm text-left ml-2">{listing.address}</p>
                             </div>
                             <div>
-                              <p className=" text-left ml-2">{listing.office_name}</p>
+                              <p className="text-sm text-left ml-2">{listing.office_name}</p>
                             </div>
                             <br />
                             <div>
                             
   <i onClick={() => removeHome(listing._id)} className="fas fa-heart hover:cursor-pointer"></i>
-  <i className="far fa-heart hover:cursor-pointer"></i>
 
                             </div>
                             <br />

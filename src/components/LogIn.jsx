@@ -8,7 +8,6 @@ const LogIn = (props) => {
     const [loading, setLoading] = useState(false)
     const [errMessage, setErrMessage] = useState(false)
 
-    console.log(props)
     const doSignup = async (e) => {
         e.preventDefault()
         setLoading(true)

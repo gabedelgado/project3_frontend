@@ -12,8 +12,9 @@ const MapSearchBar = ({setSearchResults, panTo }) => {
         const results = await getGeocode({address});
         const zip = await getZipCode(results[0])
         const {lat,lng} = await getLatLng(results[0])
+        
 
-        findHomes(zip).then(results => {
+        findHomes(zip, address).then(results => {
             setSearchResults(results.data.listings)
         }).catch(err => {
             console.log(err)
